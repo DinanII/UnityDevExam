@@ -19,7 +19,7 @@ public class FollowPlayer : MonoBehaviour
     // {
     //     transform.position = Player.position + Offset;
     // }
-        void FixedUpdate()
+    void FixedUpdate()
     {
         // Set the desired camera position
         DesiredPosition = Player.position + Offset;
