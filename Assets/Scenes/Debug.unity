@@ -690,11 +690,11 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: -10}
+  m_LocalPosition: {x: 0, y: 3, z: -7.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1790430304}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
@@ -708,8 +708,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de02dd7a92be621dfbcd1f01e0b0a718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 1790430304}
-  Offset: {x: 0, y: 2, z: -10}
+  player: {fileID: 1790430304}
+  Sensitivity: 120
+  MaxVerticalAngle: 80
+  PlayerOffset: {x: 10, y: 5, z: 0}
   SmoothSpeed: 0.125
 --- !u!1 &1198333352
 GameObject:
@@ -1189,6 +1191,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 384874364}
+  - {fileID: 963194228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1790430305
@@ -1518,10 +1521,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor
       objectReference: {fileID: 0}
-    - target: {fileID: 9220759751255499264, guid: 0dd06fa88e513f81a9ef0e40c1356304, type: 3}
-      propertyPath: m_TagString
-      value: Floor
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1532,7 +1531,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 705507995}
-  - {fileID: 963194228}
   - {fileID: 1790430304}
   - {fileID: 3233171235566402188}
   - {fileID: 1598254119}
