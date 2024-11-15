@@ -4,31 +4,32 @@ using UnityEngine;
 
 public class HorizontalMovement : MonoBehaviour
 {
-    [SerializeField] Vector3 objectMovement = new();
-    [SerializeField] float movementSpeed = 500f;
-    Transform transform;
-    bool moved = false;
-    Rigidbody rigidBody;
+    [SerializeField] Vector3 pointB = new(0,0,0);
+    [SerializeField] float movementSpeed = 2f;
+    Vector3 startPos;
+    private new Transform transform;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        rigidBody = GetComponent<Rigidbody>();
         transform = GetComponent<Transform>();
+        startPos = transform.position;
+        // Replace pointB positions with start positions if pointB value is 0
+        //pointB.x == 0 ? pointB.x = startPos.x : // pass ;
+        pointB.x = (pointB.x == 0) ? startPos.x : pointB.x;
+        pointB.y = (pointB.y == 0) ? startPos.y : pointB.y;
+        pointB.z = (pointB.z == 0) ? startPos.z : pointB.z;
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    // FixedUpdate is called 50 times a frame
     void FixedUpdate() {
-        transform.position += Vector3.Lerp(transform.position, objectMovement, Time.deltaTime * 5);
-        
-        transform.position -= Vector3.Lerp(transform.position, objectMovement, Time.deltaTime * 5);
-        // rigidBody.AddForce(objectMovement * movementSpeed,ForceMode.VelocityChange);
-        // rigidBody.AddForce(-objectMovement,ForceMode.VelocityChange);
+        float time = Mathf.PingPong(Time.time * movementSpeed,1);
+        transform.position = Vector3.Lerp(startPos,pointB,time);
     }
 
+    void CheckPositions() {
+
+    }
 }

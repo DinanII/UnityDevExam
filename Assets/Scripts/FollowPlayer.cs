@@ -11,14 +11,10 @@ public class FollowPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        print("Dev branch test");    
+
     }
 
-    // Update is called once per frame
-    // void Update()
-    // {
-    //     transform.position = Player.position + Offset;
-    // }
+
     void FixedUpdate()
     {
         // Set the desired camera position

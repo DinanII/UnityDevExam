@@ -601,8 +601,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d928d82520fd5fa3197adb506b688dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectMovement: {x: 20, y: 2.59, z: 3.85}
-  movementSpeed: 10
+  pointB: {x: 5, y: 0, z: 0}
+  movementSpeed: 0.5
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
