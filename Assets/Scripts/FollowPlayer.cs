@@ -17,6 +17,7 @@ public class FollowPlayer : MonoBehaviour
 
     void Start()
     {
+
         // Lock the cursor to the game window
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -37,10 +38,11 @@ public class FollowPlayer : MonoBehaviour
         Yaw += mouseX;
         Pitch -= mouseY;
 
+
         // Clamp the pitch to prevent flipping
         Pitch = Mathf.Clamp(Pitch, -MaxVerticalAngle, MaxVerticalAngle);
     }
-        void UpdateCameraPosition()
+    void UpdateCameraPosition()
     {
         // Calculate new camera position and rotation
         Quaternion rotation = Quaternion.Euler(Pitch, Yaw, 0f);
