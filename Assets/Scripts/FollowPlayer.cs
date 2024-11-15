@@ -11,7 +11,7 @@ public class FollowPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        print("Dev branch test");    
     }
 
     // Update is called once per frame
