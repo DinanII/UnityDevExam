@@ -23,6 +23,22 @@ public class HorizontalMovement : MonoBehaviour
 
     }
 
+    // When player lands on platform, set the platform temporarily as a parent.
+    private void OnCollisionEnter(Collision otherObject) {
+        if(otherObject.gameObject.CompareTag("Player")) {
+
+            otherObject.transform.SetParent(transform);
+        }
+    }
+    private void OnCollisionExit(Collision otherObject) {
+        // Check if the player is leaving the platform
+        if (otherObject.gameObject.CompareTag("Player"))
+        {
+            // Reset the player's parent to null
+            otherObject.transform.SetParent(null);
+        }
+    }
+
     // FixedUpdate is called 50 times a frame
     void FixedUpdate() {
         float time = Mathf.PingPong(Time.time * movementSpeed,1);
