@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float MovementSpeed = 5f;
@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private bool Jumped = false;
 
     private GroundChecker GroundChecker;
+    private Transform ObjectTransform;
     private Rigidbody Rb;
     private Camera Camera;
 
@@ -24,6 +25,10 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && GroundChecker.IsGrounded)
         {
             Jumped = true;
+        }
+
+        if(ObjectTransform.position.y < 0) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
