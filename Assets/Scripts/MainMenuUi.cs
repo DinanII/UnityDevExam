@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuUi : MonoBehaviour
 {
     public void Play() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("LevelSelectMenu");
     }
 
     public void Quit() {
