@@ -9,15 +9,16 @@ public class PlayerMovement : MonoBehaviour
     private bool Jumped = false;
 
     private GroundChecker GroundChecker;
-    private Transform ObjectTransform;
-    private Rigidbody Rb;
+    private Transform Transform;
+    private Rigidbody RigidBody;
     private Camera Camera;
 
     void Start()
     {
-        Rb = GetComponent<Rigidbody>();
+        RigidBody = GetComponent<Rigidbody>();
         GroundChecker = GetComponentInChildren<GroundChecker>();
         Camera = Camera.main;
+        Transform = GetComponent<Transform>();
     }
 
     void Update()
@@ -27,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
             Jumped = true;
         }
 
-        if(ObjectTransform.position.y < 0) {
+        if(Transform.position.y < 0) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
@@ -68,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
         movement = movement.normalized * MovementSpeed;
 
         // Preserve the vertical velocity
-        float verticalVelocity = Rb.velocity.y;
+        float verticalVelocity = RigidBody.velocity.y;
 
         // Apply jump force
         if (Jumped)
@@ -78,6 +79,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Set the velocity, preserving the vertical component
-        Rb.velocity = new Vector3(movement.x, verticalVelocity, movement.z);
+        RigidBody.velocity = new Vector3(movement.x, verticalVelocity, movement.z);
     }
 }
