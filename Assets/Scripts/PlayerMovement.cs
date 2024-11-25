@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+     void FixedUpdate()
     {
         Vector3 cameraForward = Camera.transform.forward;
         Vector3 cameraRight = Camera.transform.right;
