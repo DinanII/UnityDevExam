@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class LevelFinish : MonoBehaviour
 {
 
     [SerializeField] public GameObject FinishPanel;
+    [SerializeField] public TextMeshProUGUI Title;
+    [SerializeField] public TextMeshProUGUI SubTitle;
+    [SerializeField] public Button NextLvlBtn;
 
 
     void Start() {
@@ -18,8 +23,15 @@ public class LevelFinish : MonoBehaviour
 
 
     public void LoadNextLevel() {
+        int totalScenes = SceneManager.sceneCountInBuildSettings;
         int nextLevel = SceneManager.GetActiveScene().buildIndex + 1;
-        print(nextLevel);
+        if(nextLevel < totalScenes) {
+            SceneManager.LoadScene(nextLevel);
+            return;
+        }
+        Title.text = "Congratulations!";
+        SubTitle.text = "You Finished the game.";
+        
     }
 
 
