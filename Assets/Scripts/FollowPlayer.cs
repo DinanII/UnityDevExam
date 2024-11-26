@@ -20,6 +20,7 @@ public class FollowPlayer : MonoBehaviour
 
         // Lock the cursor to the game window
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
