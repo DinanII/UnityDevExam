@@ -14,11 +14,13 @@ public class LevelFinish : MonoBehaviour
     [SerializeField] public Button NextLvlBtn;
 
 
-    private int TotalScenes = SceneManager.sceneCountInBuildSettings;
-    private int NextLevel = SceneManager.GetActiveScene().buildIndex + 1;
+    private int TotalScenes = 0;
+    private int NextLevel = 0;
 
 
     void Start() {
+        TotalScenes = SceneManager.sceneCountInBuildSettings;
+        NextLevel = SceneManager.GetActiveScene().buildIndex + 1;
         FinishPanel.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -28,7 +30,7 @@ public class LevelFinish : MonoBehaviour
 
     private void CheckLevelVadility() {
         if(NextLevel > TotalScenes) {
-            NextLvlBtn.interactable = false;
+            // NextLvlBtn.interactable = false;
             Title.text = "Congratulations!";
             SubTitle.text = "You Finished the game.";
         }
@@ -36,7 +38,9 @@ public class LevelFinish : MonoBehaviour
     }
     public void LoadNextLevel() {
         if(NextLevel < TotalScenes) {
-            SceneManager.LoadScene(NextLevel);
+            Time.timeScale = 1f;
+            FinishPanel.SetActive(false);
+            SceneManager.LoadScene(NextLevel);            
             return;
         }
     }

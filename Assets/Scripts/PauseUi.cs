@@ -22,6 +22,7 @@ public class PauseUi : MonoBehaviour
     }
 
     public void Resume() {
+        Debug.Log("PauseUI: Resume");
         PauseMenuUi.SetActive(false);
         Time.timeScale = 1f;
         IsGamePaused = false;
@@ -31,6 +32,7 @@ public class PauseUi : MonoBehaviour
     }
 
     void Pause() {
+        Debug.Log("PauseUI: Pause");
         PauseMenuUi.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -39,11 +41,14 @@ public class PauseUi : MonoBehaviour
     }
 
     public void OpenMainMenu() {
+        Debug.Log("PauseUI: Main Menu"); // This log might not show if Time.timeScale is 0
+        Debug.LogError("Main Menu called!"); // Try using LogError for more visibility
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
 
     public void QuitGame() {
+        Debug.LogError("Quit Game called!"); // Explicit error log
         Application.Quit();
     }
 }
