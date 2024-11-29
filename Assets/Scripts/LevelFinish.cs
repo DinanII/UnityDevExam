@@ -9,49 +9,23 @@ public class LevelFinish : MonoBehaviour
 {
 
     [SerializeField] public GameObject FinishPanel;
-    [SerializeField] public TextMeshProUGUI Title;
-    [SerializeField] public TextMeshProUGUI SubTitle;
-    [SerializeField] public Button NextLvlBtn;
-
-
-    private int TotalScenes = 0;
-    private int NextLevel = 0;
 
 
     void Start() {
-        TotalScenes = SceneManager.sceneCountInBuildSettings;
-        NextLevel = SceneManager.GetActiveScene().buildIndex + 2;
-
-        Debug.Log($"Active Scene Name: {SceneManager.GetActiveScene().name}");
-        Debug.Log($"Active Scene Index: {SceneManager.GetActiveScene().buildIndex}");
-        Debug.Log($"Total Scenes in Build Settings: {TotalScenes}");
-        Debug.Log($"Next Level Index: {NextLevel}");
-
         FinishPanel.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Time.timeScale = 0f;
 
-        CheckLevelVadility();
+        //CheckLevelVadility();
     }
 
-    private void CheckLevelVadility() {
-        if(NextLevel > TotalScenes) {
-            Debug.Log("Updating text for last level...");
-            NextLvlBtn.interactable = false;
-            Title.text = "Congratulations!";
-            SubTitle.text = "You Finished the game.";
-            Debug.Log($"Title: {Title.text}, SubTitle: {SubTitle.text}");
-        }
 
-    }
+
     public void LoadNextLevel() {
-        if(NextLevel < TotalScenes) {
-            Time.timeScale = 1f;
-            FinishPanel.SetActive(false);
-            SceneManager.LoadScene(NextLevel);            
-            return;
-        }
+        Time.timeScale = 1f;
+        FinishPanel.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
 
@@ -63,4 +37,15 @@ public class LevelFinish : MonoBehaviour
     public void QuitGame() {
         Application.Quit();
     }
+
+
+    // private void CheckLevelVadility() {
+    //     if(NextLevel > TotalScenes) {
+    //         Debug.Log("Updating text for last level...");
+    //         NextLvlBtn.interactable = false;
+    //         Title.text = "Congratulations!";
+    //         SubTitle.text = "You Finished the game.";
+    //         Debug.Log($"Title: {Title.text}, SubTitle: {SubTitle.text}");
+    //     }
+    // }
 }
