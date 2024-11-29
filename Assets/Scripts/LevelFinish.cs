@@ -20,19 +20,28 @@ public class LevelFinish : MonoBehaviour
 
     void Start() {
         TotalScenes = SceneManager.sceneCountInBuildSettings;
-        NextLevel = SceneManager.GetActiveScene().buildIndex + 1;
+        NextLevel = SceneManager.GetActiveScene().buildIndex + 2;
+
+        Debug.Log($"Active Scene Name: {SceneManager.GetActiveScene().name}");
+        Debug.Log($"Active Scene Index: {SceneManager.GetActiveScene().buildIndex}");
+        Debug.Log($"Total Scenes in Build Settings: {TotalScenes}");
+        Debug.Log($"Next Level Index: {NextLevel}");
+
         FinishPanel.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Time.timeScale = 0f;
+
         CheckLevelVadility();
     }
 
     private void CheckLevelVadility() {
         if(NextLevel > TotalScenes) {
-            // NextLvlBtn.interactable = false;
+            Debug.Log("Updating text for last level...");
+            NextLvlBtn.interactable = false;
             Title.text = "Congratulations!";
             SubTitle.text = "You Finished the game.";
+            Debug.Log($"Title: {Title.text}, SubTitle: {SubTitle.text}");
         }
 
     }
