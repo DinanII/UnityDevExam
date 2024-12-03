@@ -1,74 +1,100 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float Movement;
-    [SerializeField] float MovementSpeed;
-    [SerializeField] bool Jumped;
-    [SerializeField] float JumpHeight;
-    
-    GroundChecker GroundChecker;
-    Rigidbody Rb;
+    [SerializeField] float MovementSpeed = 5f;
+    [SerializeField] float JumpHeight = 5f;
+    [SerializeField] public bool AutoRun;
+    private bool Jumped = false;
 
-    Camera Camera;
-    // Start is called before the first frame update
+    private GroundChecker GroundChecker;
+    private Transform PlayerTransform;
+    private Rigidbody PlayerRigidbody;
+    private Camera MainCamera;
+
     void Start()
     {
-        Rb = GetComponent<Rigidbody>();
-        
+        PlayerRigidbody = GetComponent<Rigidbody>();
         GroundChecker = GetComponentInChildren<GroundChecker>();
-        Camera = Camera.main;
+        MainCamera = Camera.main;
+        PlayerTransform = transform;
 
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && GroundChecker.IsGrounded) {
+        if (Input.GetKeyDown(KeyCode.Space) && GroundChecker.IsGrounded && !AutoRun)
+        {
             Jumped = true;
         }
-        // if(!GroundChecker.IsGrounded) {
-        //     MovementSpeed *= 0.5f;
-        // }
+
+        if(PlayerTransform.position.y < 0) 
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
-    // FixedUpdate is called 50 * / second
-    void FixedUpdate() {
-        Vector3 cameraForward = Camera.transform.forward;
-        Vector3 cameraRight = Camera.transform.right;
+    void FixedUpdate()
+    {
+        if(!AutoRun) {
+            // Use Camera's horizontal forward direction
+            Vector3 cameraForward = Vector3.ProjectOnPlane(MainCamera.transform.forward, Vector3.up);
+            Vector3 cameraRight = Vector3.ProjectOnPlane(MainCamera.transform.right, Vector3.up);
 
-        // Normalize to avoid diagonal speed boost
-        cameraForward.Normalize();
-        cameraRight.Normalize();
+            // Normalize directions
+            cameraForward.Normalize();
+            cameraRight.Normalize();
 
-        // Zero out the y component to keep the movement on the XZ plane
-        cameraForward.y = 0;
-        cameraRight.y = 0;
+            // Calculate movement direction
+            Vector3 movement = Vector3.zero;
+            if (Input.GetKey(KeyCode.W))
+            {
+                movement += cameraForward;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                movement -= cameraForward;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                movement -= cameraRight;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                movement += cameraRight;
+            }
 
+            // Scale movement by speed
+            movement = movement.normalized * MovementSpeed;
 
-        if(Jumped) {
-            Rb.AddForce(0, JumpHeight, 0, ForceMode.VelocityChange);
-            Jumped = false;
+            // Preserve the vertical velocity
+            float verticalVelocity = PlayerRigidbody.velocity.y;
+
+            // Apply jump force
+            if (Jumped)
+            {
+                verticalVelocity = JumpHeight;
+                Jumped = false;
+            }
+
+            // Set the velocity, preserving the vertical component
+            PlayerRigidbody.velocity = new Vector3(movement.x, verticalVelocity, movement.z);
+            return;
         }
 
-        Vector3 movement = Vector3.zero;
-
-        if(Input.GetKey(KeyCode.W)) {
-            movement += cameraForward * MovementSpeed;
-        }
-        if(Input.GetKey(KeyCode.S)) {
-            movement -= cameraForward * MovementSpeed;
+        // Separate movement logic
+        Vector3 strictMovement = new (0,0,MovementSpeed);
+        if(Input.GetKey(KeyCode.D)) {
+            strictMovement += new Vector3(MovementSpeed,0,0);
         }
         if(Input.GetKey(KeyCode.A)) {
-            movement -= cameraRight * MovementSpeed;
+            strictMovement += new Vector3(-MovementSpeed,0,0);
         }
-        if(Input.GetKey(KeyCode.D)) {
-            movement += cameraRight * MovementSpeed;
+        PlayerRigidbody.velocity = strictMovement;
+        if(MovementSpeed <= 20) {
+            MovementSpeed += (float)((float) MovementSpeed * 0.01);
         }
-
-        // Apply movement as a single force to the rigidbody
-        Rb.AddForce(movement, ForceMode.VelocityChange);
+  
     }
 }
