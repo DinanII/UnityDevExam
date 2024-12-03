@@ -294,8 +294,7 @@ MonoBehaviour:
   player: {fileID: 6933712908216593989}
   Sensitivity: 120
   MaxVerticalAngle: 80
-  PlayerOffset: {x: 10, y: 5, z: 0}
-  SmoothSpeed: 0.125
+  Offset: {x: 0, y: 5, z: -10}
 --- !u!1 &6925993873761128821
 GameObject:
   m_ObjectHideFlags: 0

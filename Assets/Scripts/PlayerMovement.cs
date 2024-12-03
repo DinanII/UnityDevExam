@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float MovementSpeed = 5f;
@@ -9,16 +8,16 @@ public class PlayerMovement : MonoBehaviour
     private bool Jumped = false;
 
     private GroundChecker GroundChecker;
-    private Transform Transform;
-    private Rigidbody RigidBody;
-    private Camera Camera;
+    private Transform PlayerTransform;
+    private Rigidbody PlayerRigidbody;
+    private Camera MainCamera;
 
     void Start()
     {
-        RigidBody = GetComponent<Rigidbody>();
+        PlayerRigidbody = GetComponent<Rigidbody>();
         GroundChecker = GetComponentInChildren<GroundChecker>();
-        Camera = Camera.main;
-        Transform = GetComponent<Transform>();
+        MainCamera = Camera.main;
+        PlayerTransform = transform;
     }
 
     void Update()
@@ -28,19 +27,17 @@ public class PlayerMovement : MonoBehaviour
             Jumped = true;
         }
 
-        if(Transform.position.y < 0) {
+        if(PlayerTransform.position.y < 0) 
+        {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
-     void FixedUpdate()
+    void FixedUpdate()
     {
-        Vector3 cameraForward = Camera.transform.forward;
-        Vector3 cameraRight = Camera.transform.right;
-
-        // Zero out the y component to keep movement on the XZ plane
-        cameraForward.y = 0;
-        cameraRight.y = 0;
+        // Use Camera's horizontal forward direction
+        Vector3 cameraForward = Vector3.ProjectOnPlane(MainCamera.transform.forward, Vector3.up);
+        Vector3 cameraRight = Vector3.ProjectOnPlane(MainCamera.transform.right, Vector3.up);
 
         // Normalize directions
         cameraForward.Normalize();
@@ -69,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
         movement = movement.normalized * MovementSpeed;
 
         // Preserve the vertical velocity
-        float verticalVelocity = RigidBody.velocity.y;
+        float verticalVelocity = PlayerRigidbody.velocity.y;
 
         // Apply jump force
         if (Jumped)
@@ -79,6 +76,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Set the velocity, preserving the vertical component
-        RigidBody.velocity = new Vector3(movement.x, verticalVelocity, movement.z);
+        PlayerRigidbody.velocity = new Vector3(movement.x, verticalVelocity, movement.z);
     }
 }
