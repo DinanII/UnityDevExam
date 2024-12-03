@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class DoorUp : MonoBehaviour
@@ -9,7 +10,8 @@ public class DoorUp : MonoBehaviour
         if(otherObject.tag == "Player") {
             Debug.Log("Object with Player-Tag is touching the door");
             KeyHolder keyHolder = otherObject.gameObject.GetComponent<KeyHolder>();
-            if(keyHolder && keyHolder.HasKey == true) {
+            PlayerMovement playerMovement = otherObject.GetComponent<PlayerMovement>();
+            if( playerMovement.AutoRun == true || keyHolder && keyHolder.HasKey == true) {
                 // Scene scene = SceneManager.GetSceneByBuildIndex(Index++)
                 //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 if(LevelUpUi != null) {

@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    public Transform player;
+    public GameObject Player;
+    PlayerMovement PlayerScript;
     [SerializeField] float Sensitivity = 120f;
     [SerializeField] float MaxVerticalAngle = 80f;
     [SerializeField] Vector3 Offset = new Vector3(0, 5, -10); 
@@ -14,12 +15,17 @@ public class FollowPlayer : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        Player = GameObject.Find("Player");
+        PlayerScript = Player.GetComponent<PlayerMovement>();
+
     }
 
     void Update()
     {
-        MouseMovement();
-        UpdateCameraPosition();
+        if(!PlayerScript.AutoRun) {
+            MouseMovement();
+            UpdateCameraPosition();
+        }
     }
 
     void MouseMovement()
@@ -40,7 +46,7 @@ public class FollowPlayer : MonoBehaviour
         Vector3 rotatedOffset = rotation * Offset;
 
         // Set camera position relative to player
-        transform.position = player.position + rotatedOffset;
-        transform.LookAt(player.position);
+        transform.position = Player.transform.position + rotatedOffset;
+        transform.LookAt(Player.transform.position);
     }
 }

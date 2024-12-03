@@ -17,6 +17,10 @@ public class LevelSelect : MonoBehaviour
         SceneManager.LoadScene("Level1");
     }
 
+    public void LoadARLvl0() {
+        SceneManager.LoadScene("ARLvl0");
+    }
+
     public void MainMenu() {
         SceneManager.LoadScene("MainMenu");
     }

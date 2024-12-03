@@ -173,6 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 5
   JumpHeight: 8
+  AutoRun: 1
 --- !u!114 &1440333882779918912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,7 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de02dd7a92be621dfbcd1f01e0b0a718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 6933712908216593989}
+  Player: {fileID: 0}
   Sensitivity: 120
   MaxVerticalAngle: 80
   Offset: {x: 0, y: 5, z: -10}
