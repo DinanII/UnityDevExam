@@ -10,11 +10,11 @@ public class LevelSelect : MonoBehaviour
     }
 
     public void LoadLevel0() {
-        SceneManager.LoadScene("Level0");
+        SceneManager.LoadScene("Level2");
     }
 
     public void LoadLevel1() {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("Level3");
     }
 
     public void LoadARLvl0() {
