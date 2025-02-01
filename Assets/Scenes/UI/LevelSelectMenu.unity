@@ -270,6 +270,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DefLvl1
       objectReference: {fileID: 0}
+    - target: {fileID: 3189556942986795742, guid: d2f0665a9e85ca3b1a33c664ef0bb405, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5691487476141012473, guid: d2f0665a9e85ca3b1a33c664ef0bb405, type: 3}
       propertyPath: m_text
       value: 2
@@ -412,7 +416,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -225, y: -176}
+  m_AnchoredPosition: {x: -250, y: -215}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &383883085
@@ -1617,7 +1621,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7124934194530331091, guid: 82028176fcd3fe8bbac74810ba36028a, type: 3}
       propertyPath: m_text
-      value: Level Selection
+      value: Select Gamemode
       objectReference: {fileID: 0}
     - target: {fileID: 7124934194530331091, guid: 82028176fcd3fe8bbac74810ba36028a, type: 3}
       propertyPath: m_margin.x

@@ -5,7 +5,12 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float MovementSpeed = 5f;
     [SerializeField] float JumpHeight = 5f;
+    [SerializeField] float Gravity = -20f;
     [SerializeField] public bool AutoRun;
+    [SerializeField] int AutoRunMultiplierTreshold = 20;
+    [SerializeField] bool AutoRunUseTreshold = true;
+
+    [SerializeField] float AutoRunMovementMultiplier = 0.01f;
     private bool Jumped = false;
 
     private GroundChecker GroundChecker;
@@ -19,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
         GroundChecker = GetComponentInChildren<GroundChecker>();
         MainCamera = Camera.main;
         PlayerTransform = transform;
-
+        Physics.gravity = new Vector3(0, Gravity, 0);
     }
 
     void Update()
@@ -84,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Separate movement logic
+        float currentYVelocity = PlayerRigidbody.velocity.y;
         Vector3 strictMovement = new (0,0,MovementSpeed);
         if(Input.GetKey(KeyCode.D)) {
             strictMovement += new Vector3(MovementSpeed,0,0);
@@ -91,9 +97,14 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetKey(KeyCode.A)) {
             strictMovement += new Vector3(-MovementSpeed,0,0);
         }
-        PlayerRigidbody.velocity = strictMovement;
-        if(MovementSpeed <= 20) {
-            MovementSpeed += (float)((float) MovementSpeed * 0.01);
+
+        // Apply movement speed
+        PlayerRigidbody.velocity = new Vector3(strictMovement.x, currentYVelocity, strictMovement.z);
+
+        
+        // Increase movementspeed with multiplier while it is below trehold
+        if(MovementSpeed <= AutoRunMultiplierTreshold || AutoRunUseTreshold == false) {
+            MovementSpeed += (float)((float) MovementSpeed * AutoRunMovementMultiplier);
         }
   
     }
