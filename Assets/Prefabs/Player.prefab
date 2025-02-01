@@ -119,7 +119,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 577145095566331737}
   serializedVersion: 4
-  m_Mass: 5
+  m_Mass: 1
   m_Drag: 1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -173,7 +173,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 5
   JumpHeight: 8
-  AutoRun: 1
+  Gravity: -20
+  AutoRun: 0
+  AutoRunMultiplierTreshold: 20
+  AutoRunUseTreshold: 1
+  AutoRunMovementMultiplier: 0.01
 --- !u!114 &1440333882779918912
 MonoBehaviour:
   m_ObjectHideFlags: 0
