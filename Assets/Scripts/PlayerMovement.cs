@@ -42,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
     
     void FixedUpdate()
     {
+        float currentYVelocity = PlayerRigidbody.velocity.y;
         if(!AutoRun) {
             // Use Camera's horizontal forward direction
             Vector3 cameraForward = Vector3.ProjectOnPlane(MainCamera.transform.forward, Vector3.up);
@@ -73,23 +74,19 @@ public class PlayerMovement : MonoBehaviour
             // Scale movement by speed
             movement = movement.normalized * MovementSpeed;
 
-            // Preserve the vertical velocity
-            float verticalVelocity = PlayerRigidbody.velocity.y;
-
+            
             // Apply jump force
             if (Jumped)
             {
-                verticalVelocity = JumpHeight;
+                currentYVelocity = JumpHeight;
                 Jumped = false;
             }
 
             // Set the velocity, preserving the vertical component
-            PlayerRigidbody.velocity = new Vector3(movement.x, verticalVelocity, movement.z);
+            PlayerRigidbody.velocity = new Vector3(movement.x, currentYVelocity, movement.z);
             return;
         }
-
-        // Separate movement logic
-        float currentYVelocity = PlayerRigidbody.velocity.y;
+        
         Vector3 strictMovement = new (0,0,MovementSpeed);
         if(Input.GetKey(KeyCode.D)) {
             strictMovement += new Vector3(MovementSpeed,0,0);
