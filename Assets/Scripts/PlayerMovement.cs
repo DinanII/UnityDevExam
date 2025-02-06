@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
-
+    
     void FixedUpdate()
     {
         float currentYVelocity = PlayerRigidbody.velocity.y;
